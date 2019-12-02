@@ -14,6 +14,12 @@ urlpatterns = [
     path('logout/',auth_views.LogoutView.as_view(template_name='users/logout.html'),name='logout'),
     path('profile/',user_views.profile,name='profile'),
     path('',views.index,name='homepage'),
+
+    path('shop/',views.shop,name='shop'),
+    path('contact/',views.contact,name='contact'),
+    path('blog/',views.blog,name='blog'),
+    path('addCart/<int:pk>/',views.addCart,name='addCart'),
+    path('cart/',views.cartPage,name='cart')
 ]
 
 if settings.DEBUG:
