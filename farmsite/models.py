@@ -18,6 +18,7 @@ class Product(models.Model):
     available = models.BooleanField()
     discount = models.IntegerField()
     discription = models.TextField()
+    nutFacts = models.TextField()
     prime = models.BooleanField()
 
     def __str__(self):

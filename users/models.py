@@ -25,6 +25,17 @@ class cart(models.Model):
         verbose_name = 'Carts'
         verbose_name_plural = 'Carts'
 
+class wishList(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    productID = models.ManyToManyField(farm_model.Product,blank=True)
+
+    def __str__(self):
+        return self.user.username+' Wishlist'
+    
+    class Meta:
+        verbose_name = 'Wishlists'
+        verbose_name_plural = 'Wishlists'
+
 
 class History(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)

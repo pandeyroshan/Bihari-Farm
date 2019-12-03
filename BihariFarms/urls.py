@@ -11,7 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', user_views.register,name='register'),
     path('login/',auth_views.LoginView.as_view(template_name='users/login.html'),name='login'),
-    path('logout/',auth_views.LogoutView.as_view(template_name='users/logout.html'),name='logout'),
+    path('logout/',auth_views.LogoutView.as_view(next_page=settings.LOGOUT_REDIRECT_URL),name='logout'),
     path('profile/',user_views.profile,name='profile'),
     path('',views.index,name='homepage'),
 
@@ -19,7 +19,12 @@ urlpatterns = [
     path('contact/',views.contact,name='contact'),
     path('blog/',views.blog,name='blog'),
     path('addCart/<int:pk>/',views.addCart,name='addCart'),
-    path('cart/',views.cartPage,name='cart')
+    path('cart/',views.cartPage,name='cart'),
+    path('removeItem/<int:pk>/',views.removeItem,name='removeItem'),
+    path('wishlist/<int:pk>/',views.addWish,name='addWish'),
+    path('wishlist/',views.mywishlist,name='mywishlist'),
+    path('editWish/<int:pk>/',views.editWish,name='removeItemWish'),
+    path('product/<int:pk>/',views.product,name='product')
 ]
 
 if settings.DEBUG:
