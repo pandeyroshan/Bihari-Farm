@@ -31,12 +31,11 @@
                             </td>
                             
                             <td class="price">{{item.price}}</td>
-                            
                             <td class="quantity">
                                 <div class="input-group mb-3">
-                                 <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-                              </div>
-                          </td>
+                                    <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+                                </div>
+                            </td>
                             
                             <td class="total">{{item.price}}</td>
                           </tr><!-- END TR-->
@@ -51,35 +50,21 @@
                 <div class="cart-total mb-3">
                     <h3>Coupon Code</h3>
                     <p>Enter your coupon code if you have one</p>
-                      <form action="#" class="info">
-              <div class="form-group">
-                  <label for="">Coupon code</label>
-                <input type="text" class="form-control text-left px-3" placeholder="">
-              </div>
-            </form>
+                      <form class="info" method="POST">
+                          {%csrf_token%}
+                          <div class="form-group">
+                              <label for="">Coupon code</label>
+                            <input type="text" name='couponCode' class="form-control text-lefcouponCodet px-3" placeholder="Coupon code, if any">
+                          </div>
+                      </form>
+                    <p><a class="btn btn-primary py-3 px-4" type="submit">Apply Coupon</a></p>
                 </div>
-                <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
             </div>
             <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
-                <div class="cart-total mb-3">
-                    <h3>Estimate shipping and tax</h3>
-                    <p>Enter your destination to get a shipping estimate</p>
-                      <form action="#" class="info">
-              <div class="form-group">
-                  <label for="">Country</label>
-                <input type="text" class="form-control text-left px-3" placeholder="">
-              </div>
-              <div class="form-group">
-                  <label for="country">State/Province</label>
-                <input type="text" class="form-control text-left px-3" placeholder="">
-              </div>
-              <div class="form-group">
-                  <label for="country">Zip/Postal Code</label>
-                <input type="text" class="form-control text-left px-3" placeholder="">
-              </div>
-            </form>
+                <div class="">
+                    <h3></h3>
+                    <p></p>
                 </div>
-                <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Estimate</a></p>
             </div>
             <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
                 <div class="cart-total mb-3">
@@ -102,7 +87,7 @@
                         <span>{{total}}</span>
                     </p>
                 </div>
-                <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                <p><a href="/checkout" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
             </div>
         </div>
         </div>

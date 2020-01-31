@@ -12,7 +12,7 @@ class ProductType(models.Model):
 class Product(models.Model):
     productType = models.ForeignKey(ProductType,on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    image= models.ImageField(upload_to='Product Photo')
+    image = models.ImageField(upload_to='Product Photo')
     weight = models.CharField(max_length=10)
     price = models.IntegerField()
     available = models.BooleanField()
@@ -26,9 +26,10 @@ class Product(models.Model):
 
 class couponCode(models.Model):
     code = models.CharField(max_length=15,blank=False)
+    discount = models.IntegerField("Discount")
     products = models.ManyToManyField(Product)
-    validity = models.DateTimeField(blank=False)
     limit = models.IntegerField(blank=False)
+    active = models.BooleanField("Activate")
 
 
     def __str__(self):
@@ -98,3 +99,6 @@ class testimonial(models.Model):
     class Meta:
         verbose_name_plural = 'Testimonial'
         verbose_name = 'Testimonial'
+
+class checkout(models.Model):
+    pass

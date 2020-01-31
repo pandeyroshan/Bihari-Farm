@@ -24,7 +24,11 @@ urlpatterns = [
     path('wishlist/<int:pk>/',views.addWish,name='addWish'),
     path('wishlist/',views.mywishlist,name='mywishlist'),
     path('editWish/<int:pk>/',views.editWish,name='removeItemWish'),
-    path('product/<int:pk>/',views.product,name='product')
+    path('product/<int:pk>/',views.product,name='product'),
+
+
+    path('newsletter', views.newletter, name='newsletter'),
+    path('checkout/',views.checkout,name='checkout')
 ]
 
 if settings.DEBUG:

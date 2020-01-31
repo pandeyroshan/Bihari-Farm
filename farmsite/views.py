@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
-from .models import Product,Contact,testimonial
+from .models import Product,Contact,testimonial,couponCode,NewsLetters
 from users.models import cart,wishList
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -105,14 +105,21 @@ def cartPage(request):
         op = data.price
         dc = data.discount
         discount += op*(dc/100.0)
-    print(discount)
     total = (price+50)-discount
     cartObject = cart.objects.filter(user=request.user).values("productID")
-    print(cartObject)
     item = len(cartObject)
     if item==1:
         if cartObject[0].get('productID') == None:
             item=0
+    if request.method == 'POST':
+        codeObject = couponCode.objects.get(code=request.POST.get('couponCode'))
+        if codeObject.active and codeObject.limit>0:
+            codeObject.limit -=1
+            amount = codeObject.discount
+            codeObject.save()
+            discount +=amount
+            total -=amount
+            discount = str(discount)+" ( "+str(codeObject)+" Applied)"
     return render(request,'farmsite/cart.html',{'items': myList,'price':price,'discount':discount,'total':total,'item':item})
 
 @login_required
@@ -186,3 +193,34 @@ def mywishlist(request):
 def product(request,pk):
     product = Product.objects.get(id=pk)
     return render(request,'farmsite/product.html',{'product':product})
+
+def newletter(request):
+    if request.method == 'POST':
+        news_object = NewsLetters(email=request.POST.get('email'))
+        news_object.save()
+    return redirect('/')
+
+def checkout(request):
+    cartObject = cart.objects.filter(user=request.user).values("productID")
+    myList = []
+    try:
+        for data in cartObject:
+            id = data['productID']
+            myList.append(Product.objects.get(id=id))
+    except:
+        pass
+    price = 0
+    for data in myList:
+        price+=data.price
+    discount =0
+    for data in myList:
+        op = data.price
+        dc = data.discount
+        discount += op*(dc/100.0)
+    total = (price+50)-discount
+    cartObject = cart.objects.filter(user=request.user).values("productID")
+    item = len(cartObject)
+    if item==1:
+        if cartObject[0].get('productID') == None:
+            item=0
+    return render(request,'farmsite/checkout.html',{'items': myList,'price':price,'discount':discount,'total':total,'item':item})
